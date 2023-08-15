@@ -7,22 +7,28 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
 
-    public Rigidbody rb;
-    public float moveSpeed = 1;
+    public Rigidbody rigidBody;
+    public float moveSpeed = 300;
     private float moveX;
     private float moveY;
 
     // Default Score
-    private int score = 0;
 
-    // UI Text
-    public TextMeshProUGUI scoreText;
+    // Delegate
+    public delegate void OnIncrementScore();
+    public static OnIncrementScore onIncrementScore;
+
+    public delegate void OnHitTheWall();
+    public static OnHitTheWall onHitTheWall;
+
+
+    public delegate void OnPickupItem();
+    public static OnPickupItem onPickupItem;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        moveSpeed = 2;
-        score = 0;
+        rigidBody = GetComponent<Rigidbody>();
+        moveSpeed = 300;
     }
 
     private void OnMove(InputValue input)
@@ -32,25 +38,40 @@ public class PlayerController : MonoBehaviour
         moveY = movVector.y;
     }
 
-    private void OnFire(InputValue input){
-        Debug.Log("On Fire");
-    } 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rigidBody.AddForce(Vector3.up, ForceMode.Impulse);
+        }
+    }
 
     private void FixedUpdate()
     {
         Vector3 vector3 = new Vector3(moveX, 0, moveY);
-        rb.AddForce(vector3 * moveSpeed * Time.deltaTime);
+        rigidBody.AddForce(vector3 * moveSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "PickableItem")
         {
-            other.gameObject.SetActive(false);
-            score += 10;
-            scoreText.text = "Score: " + score.ToString();
+            Destroy(other.gameObject);
+            //other.gameObject.SetActive(false);
+            onIncrementScore?.Invoke();
+            onPickupItem?.Invoke();
         }
+
+
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Wall")
+        {
+            Debug.Log("Hit the wall");
+            onHitTheWall?.Invoke();
+        }
+    }
 
 }
