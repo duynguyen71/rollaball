@@ -537,21 +537,21 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.1
+  m_fontSize: 34.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 1
+  m_HorizontalAlignment: 16
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 1
   m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
+  m_paragraphSpacing: 1
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
@@ -621,7 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45e99f6737b841da8fb4238c5510b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 917411243}
+  rigidBody: {fileID: 0}
   moveSpeed: 0
 --- !u!135 &917411238
 SphereCollider:
@@ -1019,6 +1019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2ee31df426b4c6788db0e1abe1adc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dimX: 0
+  dimZ: 0
   maxObjToSpawn: 10
   gameObjPickItemPref: {fileID: 1544705294}
   floor: {fileID: 1988600773}
